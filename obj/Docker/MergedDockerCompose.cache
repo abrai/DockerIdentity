@@ -1,0 +1,74 @@
+services:
+  apigateway:
+    build:
+      context: D:\devlopement\GitHub\MovieSample\DockerIdentity
+      dockerfile: ApiGateway/Dockerfile
+    container_name: apigateway
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:80
+      Authority: http://identityserver
+    image: apigateway
+    networks:
+      default: null
+    ports:
+    - mode: ingress
+      target: 80
+      published: 4010
+      protocol: tcp
+  identityserver:
+    build:
+      context: D:\devlopement\GitHub\MovieSample\DockerIdentity
+      dockerfile: IdentityServer/Dockerfile
+    container_name: identityserver
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:80
+      PostLogoutRedirectUris: http://movies.client/signout-callback-oidc
+      RedirectUris: http://movies.client/signin-oidc
+    image: identityserver
+    networks:
+      default: null
+    ports:
+    - mode: ingress
+      target: 80
+      published: 4005
+      protocol: tcp
+  movies.api:
+    build:
+      context: D:\devlopement\GitHub\MovieSample\DockerIdentity
+      dockerfile: Movies.API/Dockerfile
+    container_name: movies.api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:80
+      Authority: http://identityserver
+    image: moviesapi
+    networks:
+      default: null
+    ports:
+    - mode: ingress
+      target: 80
+      published: 4001
+      protocol: tcp
+  movies.client:
+    build:
+      context: D:\devlopement\GitHub\MovieSample\DockerIdentity
+      dockerfile: Movies.Client/Dockerfile
+    container_name: movies.client
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:80
+      ApiGatewayURL: http://apigateway
+      Authority: http://identityserver
+    image: moviesclient
+    networks:
+      default: null
+    ports:
+    - mode: ingress
+      target: 80
+      published: 4002
+      protocol: tcp
+networks:
+  default:
+    name: dockercompose1463222820086007781_default

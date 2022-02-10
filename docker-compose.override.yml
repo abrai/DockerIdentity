@@ -1,0 +1,40 @@
+version: '3.4'
+
+services:
+  movies.api: 
+    container_name: movies.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - "Authority=http://identityserver"
+    ports:
+      - "4001:80"
+
+  apigateway:
+    container_name: apigateway
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - "Authority=http://identityserver"
+    ports:
+      - "4010:80"
+
+  movies.client:
+    container_name: movies.client
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - "Authority=http://identityserver"
+      - "ApiGatewayURL=http://apigateway"
+    ports:
+      - "4002:80"
+ 
+  identityserver:
+    container_name: identityserver
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - "RedirectUris=http://movies.client/signin-oidc"
+      - "PostLogoutRedirectUris=http://movies.client/signout-callback-oidc"
+    ports:
+      - "4005:80"

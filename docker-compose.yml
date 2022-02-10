@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  movies.api:
+    image: ${DOCKER_REGISTRY-}moviesapi
+    build:
+      context: .
+      dockerfile: Movies.API/Dockerfile
+
+  apigateway:
+    image: ${DOCKER_REGISTRY-}apigateway
+    build:
+      context: .
+      dockerfile: ApiGateway/Dockerfile
+
+
+  movies.client:
+    image: ${DOCKER_REGISTRY-}moviesclient
+    build:
+      context: .
+      dockerfile: Movies.Client/Dockerfile
+
+
+  identityserver:
+    image: ${DOCKER_REGISTRY-}identityserver
+    build:
+      context: .
+      dockerfile: IdentityServer/Dockerfile
+
