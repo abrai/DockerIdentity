@@ -1,7 +1,7 @@
 services:
   apigateway:
     build:
-      context: D:\devlopement\GitHub\MovieSample\DockerIdentity
+      context: D:\Development\DockerIdentity
       dockerfile: ApiGateway/Dockerfile
     container_name: apigateway
     environment:
@@ -9,16 +9,12 @@ services:
       ASPNETCORE_URLS: http://+:80
       Authority: http://identityserver
     image: apigateway
-    networks:
-      default: null
     ports:
-    - mode: ingress
+    - published: 4010
       target: 80
-      published: 4010
-      protocol: tcp
   identityserver:
     build:
-      context: D:\devlopement\GitHub\MovieSample\DockerIdentity
+      context: D:\Development\DockerIdentity
       dockerfile: IdentityServer/Dockerfile
     container_name: identityserver
     environment:
@@ -27,16 +23,12 @@ services:
       PostLogoutRedirectUris: http://movies.client/signout-callback-oidc
       RedirectUris: http://movies.client/signin-oidc
     image: identityserver
-    networks:
-      default: null
     ports:
-    - mode: ingress
+    - published: 4005
       target: 80
-      published: 4005
-      protocol: tcp
   movies.api:
     build:
-      context: D:\devlopement\GitHub\MovieSample\DockerIdentity
+      context: D:\Development\DockerIdentity
       dockerfile: Movies.API/Dockerfile
     container_name: movies.api
     environment:
@@ -44,16 +36,12 @@ services:
       ASPNETCORE_URLS: http://+:80
       Authority: http://identityserver
     image: moviesapi
-    networks:
-      default: null
     ports:
-    - mode: ingress
+    - published: 4001
       target: 80
-      published: 4001
-      protocol: tcp
   movies.client:
     build:
-      context: D:\devlopement\GitHub\MovieSample\DockerIdentity
+      context: D:\Development\DockerIdentity
       dockerfile: Movies.Client/Dockerfile
     container_name: movies.client
     environment:
@@ -62,13 +50,7 @@ services:
       ApiGatewayURL: http://apigateway
       Authority: http://identityserver
     image: moviesclient
-    networks:
-      default: null
     ports:
-    - mode: ingress
+    - published: 4002
       target: 80
-      published: 4002
-      protocol: tcp
-networks:
-  default:
-    name: dockercompose1463222820086007781_default
+version: '3.4'
