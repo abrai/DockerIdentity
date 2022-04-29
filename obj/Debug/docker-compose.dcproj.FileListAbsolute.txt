@@ -170,3 +170,8 @@ D:\Development\DockerIdentity\bin\Debug\ApiGateway.pdb
 D:\Development\DockerIdentity\obj\Debug\docker-compose.dcproj.AssemblyReference.cache
 D:\Development\DockerIdentity\obj\Debug\docker-compose.dcproj.CoreCompileInputs.cache
 D:\Development\DockerIdentity\obj\Debug\docker-compose.dcproj.CopyComplete
+D:\Development\DockerIdentity\bin\Debug\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\Development\DockerIdentity\bin\Debug\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\Development\DockerIdentity\bin\Debug\Microsoft.OpenApi.dll
+D:\Development\DockerIdentity\bin\Debug\Swashbuckle.AspNetCore.Swagger.dll
+D:\Development\DockerIdentity\bin\Debug\Movies.API.xml

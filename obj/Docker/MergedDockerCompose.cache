@@ -1,3 +1,4 @@
+name: dockercompose1700081740293219464
 services:
   apigateway:
     build:
@@ -9,9 +10,13 @@ services:
       ASPNETCORE_URLS: http://+:80
       Authority: http://identityserver
     image: apigateway
+    networks:
+      default: null
     ports:
-    - published: 4010
+    - mode: ingress
       target: 80
+      published: "4010"
+      protocol: tcp
   identityserver:
     build:
       context: D:\Development\DockerIdentity
@@ -23,9 +28,13 @@ services:
       PostLogoutRedirectUris: http://movies.client/signout-callback-oidc
       RedirectUris: http://movies.client/signin-oidc
     image: identityserver
+    networks:
+      default: null
     ports:
-    - published: 4005
+    - mode: ingress
       target: 80
+      published: "4005"
+      protocol: tcp
   movies.api:
     build:
       context: D:\Development\DockerIdentity
@@ -36,9 +45,13 @@ services:
       ASPNETCORE_URLS: http://+:80
       Authority: http://identityserver
     image: moviesapi
+    networks:
+      default: null
     ports:
-    - published: 4001
+    - mode: ingress
       target: 80
+      published: "4001"
+      protocol: tcp
   movies.client:
     build:
       context: D:\Development\DockerIdentity
@@ -50,7 +63,13 @@ services:
       ApiGatewayURL: http://apigateway
       Authority: http://identityserver
     image: moviesclient
+    networks:
+      default: null
     ports:
-    - published: 4002
+    - mode: ingress
       target: 80
-version: '3.4'
+      published: "4002"
+      protocol: tcp
+networks:
+  default:
+    name: dockercompose1700081740293219464_default

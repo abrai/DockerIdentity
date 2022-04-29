@@ -43,6 +43,7 @@ namespace Movies.Client
 
             var apiGateway = Configuration["ApiGatewayURL"];
             var Authority = Configuration["Authority"];
+            var moviesAPIURL = Configuration["MoviesAPIURL"];
 
             services.AddHttpClient("MovieAPIClient", client =>
             {
@@ -50,6 +51,11 @@ namespace Movies.Client
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
             }).AddHttpMessageHandler<AuthenticationDelegatingHandler>();
+
+            //services.AddHttpClient("MovieAPIClient", client =>
+            //{
+            //    client.BaseAddress = new Uri(Configuration["MoviesAPIURL"]); 
+            //});
 
 
             // 2 create an HttpClient used for accessing the IDP
@@ -128,7 +134,9 @@ namespace Movies.Client
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
 
             app.UseRouting();
